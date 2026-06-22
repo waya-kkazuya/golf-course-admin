@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    display: inline-block;
+    width: 120px; /* 横幅を120pxに固定して右側を揃える */
+}
+
+.form-group input {
+    padding: 4px;
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
