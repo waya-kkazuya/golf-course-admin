@@ -45,7 +45,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ( $golf_courses as $golf_course )
+            @forelse ( $golf_courses as $golf_course )
                 <tr>
                     <td>{{ $golf_course->id }}</td>
                     <td>{{ $golf_course->course_name }}</td>
@@ -63,7 +63,11 @@
                         <a href="#" class="btn btn-delete">削除</a>
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="8">該当するゴルフ場が見つかりませんでした。</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
     
