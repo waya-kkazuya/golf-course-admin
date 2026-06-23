@@ -70,6 +70,7 @@
             @endforelse
         </tbody>
     </table>
-    
+    {{ $golf_courses->total() }}件
+    {{ $golf_courses->appends(request()->query())->links() }}
 </body>
 </html>

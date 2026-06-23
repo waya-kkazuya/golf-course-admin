@@ -19,11 +19,10 @@ class GolfCourseController extends Controller
         $keyword = $request->input('keyword');
         $locale  = $request->input('locale');
 
-        // dump($locale);
         $golf_courses = GolfCourse::query()
             ->keyword($keyword)
             ->locale($locale)
-            ->get();
+            ->paginate(20);
 
         return view('golf-courses.index', compact('golf_courses', 'keyword', 'locale'));
     }
