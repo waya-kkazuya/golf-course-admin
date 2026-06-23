@@ -21,4 +21,17 @@ class GolfCourse extends Model
             ])->filter()->implode(' / ')
         );
     }
+
+    public function scopeKeyword($query, $keyword)
+    {
+        return $query->when($keyword, function($q) use ($keyword) {
+                $q->where('course_name', 'like', "%{$keyword}%")
+                ->orWhere('address', 'like', "%{$keyword}%");
+        });
+    }
+
+    public function scopeLocale($query, $locale)
+    {
+        return $query->when($locale, fn($q) => $q->where('locale', $locale));
+    }
 }
