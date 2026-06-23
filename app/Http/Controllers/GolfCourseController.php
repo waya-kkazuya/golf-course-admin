@@ -25,6 +25,6 @@ class GolfCourseController extends Controller
             ->locale($locale)
             ->get();
 
-        return view('golf-courses.index', compact('golf_courses', 'keyword'));
+        return view('golf-courses.index', compact('golf_courses', 'keyword', 'locale'));
     }
 }
