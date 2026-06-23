@@ -22,6 +22,7 @@ class GolfCourseController extends Controller
         $golf_courses = GolfCourse::query()
             ->keyword($keyword)
             ->locale($locale)
+            ->orderByDesc('id')
             ->paginate(20);
 
         return view('golf-courses.index', compact('golf_courses', 'keyword', 'locale'));
