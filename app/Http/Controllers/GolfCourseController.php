@@ -33,4 +33,9 @@ class GolfCourseController extends Controller
 
         return view('golf-courses.index', compact('golfCourses', 'keyword'));
     }
+
+    public function show(GolfCourse $golfCourse)
+    {
+        return view('golf-courses.show', compact('golfCourse'));
+    }
 }
