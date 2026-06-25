@@ -38,9 +38,9 @@
 
         <dt>緯度・経度（°）</dt>
         <dd>
-            {{ $golfCourse->lat ? number_format($golfCourse->lat, 6) : '-' }}
+            {{ $golfCourse->lat !== null ? number_format($golfCourse->lat, 6) : '-' }}
             /
-            {{ $golfCourse->lng ? number_format($golfCourse->lng, 6) : '-' }}
+            {{ $golfCourse->lng !== null ? number_format($golfCourse->lng, 6) : '-' }}
         </dd>
 
         <dt>問い合わせメール</dt>
@@ -53,7 +53,7 @@
         <dd>{{ $golfCourse->reservation_method }}</dd>
 
         <dt>備考</dt>
-        <dd>{{ nl2br($golfCourse->remarks) }}</dd>
+        <dd>{!! nl2br(e($golfCourse->remarks)) !!}</dd>
 
         <dt>画像1ファイルパス</dt>
         <dd>{{ $golfCourse->image1 }}</dd>
@@ -70,4 +70,6 @@
         <dt>更新日時</dt>
         <dd>{{ $golfCourse->updated_at }}</dd>
     </dl>
+
+    <p><a href="{{ route('golf-courses.index') }}">一覧へ戻る</a></p>
 </x-layout>
