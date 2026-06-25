@@ -27,7 +27,7 @@ class GolfCourseRequest extends FormRequest
             'locale' => ['required', 'string', 'size:2', 'in:ja,en'],
             'country_code' => ['required', 'string', 'size:2'],
             'state_prefecture' => ['nullable', 'string', 'max:255'],
-            'course_name' => ['nullable', 'string', 'max:255'],
+            'course_name' => ['required', 'string', 'max:255'],
             'kinds' => ['nullable', 'integer'],
             'web' => ['nullable', 'url', 'max:2048'],
             'phone' => ['nullable', 'string', 'max:30'],
