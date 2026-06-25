@@ -38,4 +38,17 @@ class GolfCourseController extends Controller
     {
         return view('golf-courses.show', compact('golfCourse'));
     }
+
+    public function create()
+    {
+        return view('golf-courses.create');
+    }
+
+    public function store(GolfCourseRequest $request)
+    {
+        GolfCourse::create($request->validated());
+
+        return redirect()->route('golf-courses.index')
+            ->with('success', '登録しました。');
+    }
 }
