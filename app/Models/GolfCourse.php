@@ -20,6 +20,7 @@ class GolfCourse extends Model
         'web',
         'phone',
         'address',
+        'indoor',
         'outdoor',
         'short_course',
         'long_course',

@@ -33,4 +33,35 @@ class GolfCourseController extends Controller
 
         return view('golf-courses.index', compact('golfCourses', 'keyword'));
     }
+
+    public function show(GolfCourse $golfCourse)
+    {
+        return view('golf-courses.show', compact('golfCourse'));
+    }
+
+    public function create()
+    {
+        return view('golf-courses.create');
+    }
+
+    public function store(GolfCourseRequest $request)
+    {
+        GolfCourse::create($request->validated());
+
+        return redirect()->route('golf-courses.index')
+            ->with('success', '登録しました。');
+    }
+
+    public function edit(GolfCourse $golfCourse)
+    {
+        return view('golf-courses.edit', compact('golfCourse'));
+    }
+
+    public function update(GolfCourseRequest $request, GolfCourse $golfCourse)
+    {
+        $golfCourse->update($request->validated());
+
+        return redirect()->route('golf-courses.index')
+            ->with('success', '更新しました。');
+    }
 }
