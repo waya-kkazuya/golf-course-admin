@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GolfCourseRequest;
 use Illuminate\Http\Request;
 use App\Models\GolfCourse;
+use Illuminate\View\View;
 
 class GolfCourseController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $request->validate([
             'keyword' => ['nullable', 'string', 'max:100'],
@@ -18,13 +20,17 @@ class GolfCourseController extends Controller
 
         $keyword = $request->input('keyword');
         $locale  = $request->input('locale');
+        $statePrefecture = $request->input('state_prefecture');
+        $kind = $request->input('kind');
 
-        $golf_courses = GolfCourse::query()
+        $golfCourses = GolfCourse::query()
             ->keyword($keyword)
             ->locale($locale)
+            ->statePrefecture($statePrefecture)
+            ->kind($kind)
             ->orderByDesc('id')
             ->paginate(20);
 
-        return view('golf-courses.index', compact('golf_courses', 'keyword', 'locale'));
+        return view('golf-courses.index', compact('golfCourses', 'keyword'));
     }
 }

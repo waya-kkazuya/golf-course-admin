@@ -111,8 +111,9 @@ tr:hover {
 
 .pagination-desktop {
     display: flex;
+    flex-direction: column-reverse;
     align-items: center;
-    justify-content: space-between;
+    gap: 8px;
 }
 
 .pagination-mobile {
@@ -163,4 +164,51 @@ tr:hover {
 .pagination-dots {
     color: #666;
     border-color: transparent;
+}
+
+
+h1 a {
+    font-size: 16px;
+    font-weight: normal;
+}
+
+
+/* Definition List */
+dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 8px 16px;
+}
+
+dt {
+    font-weight: 500;
+    color: #666;
+    white-space: nowrap;
+}
+
+dd {
+    margin: 0;
+}
+
+/* バリデーションエラー */
+.error {
+    color: red;
+}
+
+/* フラッシュメッセージ */
+.flash {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 16px;
+    border: 0.5px solid;
+}
+
+.flash-success {
+    background-color: #EAF3DE;
+    color: #3B6D11;
+    border-color: #C0DD97;
 }

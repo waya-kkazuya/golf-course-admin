@@ -1,19 +1,23 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ゴルフコース一覧</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-</head>
-<body>
-    <h1>ゴルフコース一覧</h1>
+<x-layout>
+    <x-slot:title>
+        ゴルフ場DBメンテナンスシステム
+    </x-slot>
 
-    <form method="post" action="{{ route('logout') }}" >
-        @csrf 
-    
+    <h1>ゴルフコース一覧
+        <a href="{{ route('golf-courses.create') }}">新規作成</a>
+    </h1>
+
+    <form method="post" action="{{ route('logout') }}">
+        @csrf
+
         <button type="submit">ログアウト</button>
     </form>
+
+    @if (session('success'))
+        <div class="flash flash-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
     <form action="{{ route('golf-courses.index') }}" method="GET">
         {{-- 検索フォーム --}}
@@ -21,11 +25,39 @@
         @error('keyword')
             <p>{{ $message }}</p>
         @enderror
-        
+
         <select name="locale">
-            <option value="">すべて</option>
+            <option value="">locale</option>
             <option value="ja" {{ request('locale') == 'ja' ? 'selected' : '' }}>ja</option>
             <option value="en" {{ request('locale') == 'en' ? 'selected' : '' }}>en</option>
+        </select>
+
+        <select name="state_prefecture">
+            <option value="">都道府県・州</option>
+            <optgroup label="日本">
+                @foreach (App\Enums\Ja\JapanesePrefecture::cases() as $prefecture)
+                    <option value="{{ $prefecture->value }}"
+                        {{ request('state_prefecture') === $prefecture->value ? 'selected' : '' }}>
+                        {{ $prefecture->label() }}
+                    </option>
+                @endforeach
+            </optgroup>
+            <optgroup label="アメリカ">
+                @foreach (App\Enums\Ja\UsState::cases() as $state)
+                    <option value="{{ $state->value }}"
+                        {{ request('state_prefecture') === $state->value ? 'selected' : '' }}>
+                        {{ $state->label() }}
+                    </option>
+                @endforeach
+            </optgroup>
+        </select>
+
+        <select name="kind">
+            <option value="">種別</option>
+            <option value="indoor" {{ request('kind') === 'indoor' ? 'selected' : '' }}>インドア</option>
+            <option value="outdoor" {{ request('kind') === 'outdoor' ? 'selected' : '' }}>アウトドア</option>
+            <option value="short" {{ request('kind') === 'short' ? 'selected' : '' }}>ショートコース</option>
+            <option value="long" {{ request('kind') === 'long' ? 'selected' : '' }}>ロングコース</option>
         </select>
 
         <button type="submit">検索</button>
@@ -37,7 +69,6 @@
                 <th>id</th>
                 <th>施設名</th>
                 <th>都道府県・州名</th>
-                <th>住所</th>
                 <th>locale</th>
                 <th class="kinds-col">種別</th>
                 <th>phone</th>
@@ -45,21 +76,19 @@
             </tr>
         </thead>
         <tbody>
-            @forelse ( $golf_courses as $golf_course )
+            @forelse ($golfCourses as $golfCourse)
                 <tr>
-                    <td>{{ $golf_course->id }}</td>
-                    <td>{{ $golf_course->course_name }}</td>
-                    <td>{{ $golf_course->state_prefecture }}</td>
-                    <td>{{ $golf_course->address }}</td>
-                    <td>{{ $golf_course->locale }}</td>
-                    {{-- 切り出し部分 --}}
+                    <td>{{ $golfCourse->id }}</td>
+                    <td>{{ $golfCourse->course_name }}</td>
+                    <td>{{ $golfCourse->state_prefecture }}</td>
+                    <td>{{ $golfCourse->locale }}</td>
                     <td>
-                        {{ $golf_course->kind }}
+                        {{ $golfCourse->kind }}
                     </td>
-                    <td>{{ $golf_course->phone }}</td>
+                    <td>{{ $golfCourse->phone }}</td>
                     <td>
-                        <a href="#" class="btn btn-view">詳細</a>
-                        <a href="#" class="btn btn-edit">編集</a>
+                        <a href="{{ route('golf-courses.show', $golfCourse) }}" class="btn btn-view">詳細</a>
+                        <a href="{{ route('golf-courses.edit', $golfCourse) }}" class="btn btn-edit">編集</a>
                         <a href="#" class="btn btn-delete">削除</a>
                     </td>
                 </tr>
@@ -70,7 +99,6 @@
             @endforelse
         </tbody>
     </table>
-    {{ $golf_courses->total() }}件
-    {{ $golf_courses->appends(request()->query())->links() }}
-</body>
-</html>
+    {{ $golfCourses->total() }}件
+    {{ $golfCourses->appends(request()->query())->links() }}
+</x-layout>
