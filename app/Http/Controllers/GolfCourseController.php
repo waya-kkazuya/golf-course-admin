@@ -51,4 +51,17 @@ class GolfCourseController extends Controller
         return redirect()->route('golf-courses.index')
             ->with('success', '登録しました。');
     }
+
+    public function edit(GolfCourse $golfCourse)
+    {
+        return view('golf-courses.edit', compact('golfCourse'));
+    }
+
+    public function update(GolfCourseRequest $request, GolfCourse $golfCourse)
+    {
+        $golfCourse->update($request->validated());
+
+        return redirect()->route('golf-courses.index')
+            ->with('success', '更新しました。');
+    }
 }
