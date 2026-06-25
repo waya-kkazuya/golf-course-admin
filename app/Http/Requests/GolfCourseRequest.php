@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 
 class GolfCourseRequest extends FormRequest
 {
@@ -35,8 +36,8 @@ class GolfCourseRequest extends FormRequest
             'outdoor' => ['boolean'],
             'short_course' => ['boolean'],
             'long_course' => ['boolean'],
-            'lat' => ['required_with:lng',  'nullable', 'numeric', 'between:-90,90'],
-            'lng' => ['required_with:lat', 'nullable', 'numeric', 'between:-180,180'],
+            'lat' => ['nullable', 'numeric', 'between:-90,90'],
+            'lng' => ['nullable', 'numeric', 'between:-180,180'],
             'form_email' => ['nullable', 'email', 'max:255'],
             'reservation' => ['nullable', 'string', 'max:255'],
             'reservation_method' => ['nullable', 'string', 'max:255'],
@@ -44,6 +45,23 @@ class GolfCourseRequest extends FormRequest
             'image1' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
             'image2' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
             'image3' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
+        ];
+    }
+
+    public function after(): array
+    {
+        return [
+            function (Validator $validator) {
+                $lat = $this->input('lat');
+                $lng = $this->input('lng');
+
+                if (($lat === null || $lat === '') !== ($lng === null || $lng === '')) {
+                    $validator->errors()->add(
+                        'lat',
+                        'Please enter both latitude and longitude, or leave both empty.'
+                    );
+                }
+            }
         ];
     }
 }

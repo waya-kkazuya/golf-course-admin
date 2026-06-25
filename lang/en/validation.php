@@ -182,12 +182,6 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
-        'lat' => [
-            'required_with' => 'Latitude is required when longitude is present.',
-        ],
-        'lng' => [
-            'required_with' => 'Longitude is required when latitude is present.',
-        ],
     ],
 
     /*
