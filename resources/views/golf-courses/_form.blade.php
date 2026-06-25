@@ -121,13 +121,13 @@
             <input type="hidden" name="short_course" value="0">
             <input type="checkbox" name="short_course" value="1"
                 {{ old('short_course', $golfCourse->short_course ?? false) ? 'checked' : '' }}>
-            ナイター
+            ショートコース
         </label>
         <label>
             <input type="hidden" name="long_course" value="0">
             <input type="checkbox" name="long_course" value="1"
                 {{ old('long_course', $golfCourse->long_course ?? false) ? 'checked' : '' }}>
-            レッスン
+            ロングコース
         </label>
         @error('indoor')
             <span class="error">{{ $message }}</span>
@@ -147,11 +147,13 @@
     <dd>
         <div style="display: flex; gap: 12px;">
             <div>
-                <input type="number" id="lat" name="lat" value="{{ old('lat', $golfCourse->lat ?? '') }}"
+                <input type="number" id="lat" name="lat"
+                    value="{{ old('lat', isset($golfCourse) && $golfCourse->lat !== null ? number_format($golfCourse->lat, 6) : '') }}"
                     step="0.000001" min="-90" max="90" placeholder="緯度 例）35.681236">
             </div>
             <div>
-                <input type="number" id="lng" name="lng" value="{{ old('lng', $golfCourse->lng ?? '') }}"
+                <input type="number" id="lng" name="lng"
+                    value="{{ old('lng', isset($golfCourse) && $golfCourse->lng !== null ? number_format($golfCourse->lng, 6) : '') }}"
                     step="0.000001" min="-180" max="180" placeholder="経度 例）139.767125">
             </div>
         </div>
