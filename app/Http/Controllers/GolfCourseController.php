@@ -106,7 +106,7 @@ class GolfCourseController extends Controller
         $golfCourse->delete();
 
         return redirect()->route('golf-courses.index')
-            ->with('success', "【{$course_name}】を削除しました");
+            ->with('success', "【{$course_name}】を削除しました。");
     }
 
     public function trashed(Request $request)
@@ -141,5 +141,18 @@ class GolfCourseController extends Controller
 
         return redirect()->route('golf-courses.index')
             ->with('success', "{$course_name} を復元しました。");
+    }
+
+    public function forceDelete(GolfCourse $golfCourse)
+    {
+        $course_name = $golfCourse->course_name;
+
+        // フォルダごと削除
+        Storage::disk('public')->deleteDirectory('golf-courses/' . $golfCourse->id);
+
+        $golfCourse->forceDelete();
+
+        return redirect()->route('golf-courses.trashed')
+            ->with('success', "{$course_name} を完全に削除しました。");
     }
 }

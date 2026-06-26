@@ -13,6 +13,12 @@
         <button type="submit">ログアウト</button>
     </form>
 
+    @if (session('success'))
+        <div class="flash flash-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <form action="{{ route('golf-courses.trashed') }}" method="GET">
         {{-- 検索フォーム --}}
         <input type="text" name="keyword" value="{{ $keyword ?? '' }}" placeholder="施設名・住所で検索">
@@ -85,7 +91,15 @@
                             @csrf
                             <button type="submit" class="btn btn-edit">復元</button>
                         </form>
-                        <a href="#" class="btn btn-delete">完全削除</a>
+                        <form action="{{ route('golf-courses.force-delete', $golfCourse) }}" method="POST"
+                            style="display: inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-delete"
+                                onclick="return confirm('完全に削除します。この操作は取り消せません。よろしいですか？')">
+                                完全削除
+                            </button>
+                        </form>
                     </td>
                 </tr>
             @empty
