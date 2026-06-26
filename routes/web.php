@@ -15,6 +15,12 @@ Route::middleware('guest')->group(function () {
 
 // ログイン中の画面
 Route::middleware('auth')->group(function () {
+    Route::get('golf-courses/trashed', [GolfCourseController::class, 'trashed'])
+        ->name('golf-courses.trashed');
+
+    Route::get('golf-courses/{golfCourse}/delete', [GolfCourseController::class, 'delete'])
+        ->name('golf-courses.delete');
+
     Route::resource('golf-courses', GolfCourseController::class);
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 });

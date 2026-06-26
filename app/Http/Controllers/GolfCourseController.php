@@ -94,4 +94,43 @@ class GolfCourseController extends Controller
         return redirect()->route('golf-courses.index')
             ->with('success', '更新しました。');
     }
+
+    public function delete(GolfCourse $golfCourse)
+    {
+        return view('golf-courses.delete', compact('golfCourse'));
+    }
+
+    public function destroy(GolfCourse $golfCourse)
+    {
+        $course_name = $golfCourse->course_name;
+        $golfCourse->delete();
+
+        return redirect()->route('golf-courses.index')
+            ->with('success', "【{$course_name}】を削除しました");
+    }
+
+    public function trashed(Request $request)
+    {
+        $request->validate([
+            'keyword' => ['nullable', 'string', 'max:100'],
+            'prefecture' => ['nullable', 'string', 'max:255'],
+            'locale' => ['nullable', 'in:ja,en'],
+            'kind' => ['nullable', 'in:indoor,outdoor,short,long'],
+        ]);
+
+        $keyword = $request->input('keyword');
+        $locale  = $request->input('locale');
+        $statePrefecture = $request->input('state_prefecture');
+        $kind = $request->input('kind');
+
+        $golfCourses = GolfCourse::onlyTrashed()
+            ->keyword($keyword)
+            ->locale($locale)
+            ->statePrefecture($statePrefecture)
+            ->kind($kind)
+            ->orderByDesc('id')
+            ->paginate(20);
+
+        return view('golf-courses.trashed', compact('golfCourses', 'keyword'));
+    }
 }

@@ -3,9 +3,8 @@
         ゴルフ場DBメンテナンスシステム
     </x-slot>
 
-    <h1>ゴルフコース一覧
-        <a href="{{ route('golf-courses.create') }}">新規作成</a>
-        <a href="{{ route('golf-courses.trashed') }}">削除済み一覧</a>
+    <h1>削除済みゴルフコース一覧
+        <a href="{{ route('golf-courses.index') }}">一覧へ戻る</a>
     </h1>
 
     <form method="post" action="{{ route('logout') }}">
@@ -14,13 +13,7 @@
         <button type="submit">ログアウト</button>
     </form>
 
-    @if (session('success'))
-        <div class="flash flash-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    <form action="{{ route('golf-courses.index') }}" method="GET">
+    <form action="{{ route('golf-courses.trashed') }}" method="GET">
         {{-- 検索フォーム --}}
         <input type="text" name="keyword" value="{{ $keyword ?? '' }}" placeholder="施設名・住所で検索">
         @error('keyword')
@@ -88,9 +81,8 @@
                     </td>
                     <td>{{ $golfCourse->phone }}</td>
                     <td>
-                        <a href="{{ route('golf-courses.show', $golfCourse) }}" class="btn btn-view">詳細</a>
-                        <a href="{{ route('golf-courses.edit', $golfCourse) }}" class="btn btn-edit">編集</a>
-                        <a href="{{ route('golf-courses.delete', $golfCourse) }}" class="btn btn-delete">削除</a>
+                        <a href="#" class="btn btn-view">復元</a>
+                        <a href="#" class="btn btn-delete">完全削除</a>
                     </td>
                 </tr>
             @empty
