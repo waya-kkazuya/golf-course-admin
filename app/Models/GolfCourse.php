@@ -69,6 +69,20 @@ class GolfCourse extends Model
         );
     }
 
+    protected function createdAtFormatted(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->created_at?->format('Y年m月d日 H:i')
+        );
+    }
+
+    protected function updatedAtFormatted(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->updated_at?->format('Y年m月d日 H:i')
+        );
+    }
+
     public function scopeKeyword(Builder $query, ?string $keyword): Builder
     {
         return $query->when($keyword, function ($q) use ($keyword) {
