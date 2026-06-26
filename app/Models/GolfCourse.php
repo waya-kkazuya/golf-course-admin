@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Storage;
 
 class GolfCourse extends Model
 {
@@ -44,6 +45,27 @@ class GolfCourse extends Model
                 $this->short_course ? 'ショートコース' : null,
                 $this->long_course ? 'ロングコース' : null,
             ])->filter()->implode(' / ')
+        );
+    }
+
+    protected function image1Url(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->image1 ? Storage::url($this->image1) : null
+        );
+    }
+
+    protected function image2Url(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->image2 ? Storage::url($this->image2) : null
+        );
+    }
+
+    protected function image3Url(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->image3 ? Storage::url($this->image3) : null
         );
     }
 
