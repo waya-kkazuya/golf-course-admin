@@ -3,9 +3,8 @@
         ゴルフ場DBメンテナンスシステム
     </x-slot>
 
-    <h1>ゴルフコース一覧
-        <a href="{{ route('golf-courses.create') }}">新規作成</a>
-        <a href="{{ route('golf-courses.trashed') }}">削除済み一覧</a>
+    <h1>削除済みゴルフコース一覧
+        <a href="{{ route('golf-courses.index') }}">一覧へ戻る</a>
     </h1>
 
     <form method="post" action="{{ route('logout') }}">
@@ -20,7 +19,7 @@
         </div>
     @endif
 
-    <form action="{{ route('golf-courses.index') }}" method="GET">
+    <form action="{{ route('golf-courses.trashed') }}" method="GET">
         {{-- 検索フォーム --}}
         <input type="text" name="keyword" value="{{ $keyword ?? '' }}" placeholder="施設名・住所で検索">
         @error('keyword')
@@ -88,9 +87,19 @@
                     </td>
                     <td>{{ $golfCourse->phone }}</td>
                     <td>
-                        <a href="{{ route('golf-courses.show', $golfCourse) }}" class="btn btn-view">詳細</a>
-                        <a href="{{ route('golf-courses.edit', $golfCourse) }}" class="btn btn-edit">編集</a>
-                        <a href="{{ route('golf-courses.delete', $golfCourse) }}" class="btn btn-delete">削除</a>
+                        <form action="{{ route('golf-courses.restore', $golfCourse) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-edit">復元</button>
+                        </form>
+                        <form action="{{ route('golf-courses.force-delete', $golfCourse) }}" method="POST"
+                            style="display: inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-delete"
+                                onclick="return confirm('完全に削除します。この操作は取り消せません。よろしいですか？')">
+                                完全削除
+                            </button>
+                        </form>
                     </td>
                 </tr>
             @empty

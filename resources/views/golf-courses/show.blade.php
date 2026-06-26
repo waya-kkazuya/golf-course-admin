@@ -4,7 +4,10 @@
     </x-slot>
 
     <h1>ゴルフコース詳細</h1>
+
     <a href="{{ route('golf-courses.edit', $golfCourse) }}">編集</a>
+    <a href="{{ route('golf-courses.delete', $golfCourse) }}">削除</a>
+
     <dl>
         <dt>id</dt> <!-- Definition Term：用語・項目名 -->
         <dd>{{ $golfCourse->id }}</dd> <!-- Definition Description：説明・値 -->
