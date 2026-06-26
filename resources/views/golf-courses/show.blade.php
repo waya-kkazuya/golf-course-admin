@@ -55,14 +55,26 @@
         <dt>備考</dt>
         <dd>{!! nl2br(e($golfCourse->remarks)) !!}</dd>
 
-        <dt>画像1ファイルパス</dt>
-        <dd>{{ $golfCourse->image1 }}</dd>
+        <dt>画像1</dt>
+        <dd>
+            @if ($golfCourse->image1_url)
+                <img src="{{ $golfCourse->image1_url }}" alt="ゴルフ場画像">
+            @endif
+        </dd>
 
-        <dt>画像2ファイルパス</dt>
-        <dd>{{ $golfCourse->image2 }}</dd>
+        <dt>画像2</dt>
+        <dd>
+            @if ($golfCourse->image2_url)
+                <img src="{{ $golfCourse->image2_url }}" alt="ゴルフ場画像">
+            @endif
+        </dd>
 
-        <dt>画像3ファイルパス</dt>
-        <dd>{{ $golfCourse->image3 }}</dd>
+        <dt>画像3</dt>
+        <dd>
+            @if ($golfCourse->image3_url)
+                <img src="{{ $golfCourse->image3_url }}" alt="ゴルフ場画像">
+            @endif
+        </dd>
 
         <dt>作成日時</dt>
         <dd>{{ $golfCourse->created_at }}</dd>

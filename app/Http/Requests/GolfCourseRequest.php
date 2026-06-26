@@ -51,6 +51,7 @@ class GolfCourseRequest extends FormRequest
     public function after(): array
     {
         return [
+            // 緯度経度のバリデーション
             function (Validator $validator) {
                 $lat = $this->input('lat');
                 $lng = $this->input('lng');
@@ -61,7 +62,19 @@ class GolfCourseRequest extends FormRequest
                         'Please enter both latitude and longitude, or leave both empty.'
                     );
                 }
-            }
+            },
+
+            // 画像の削除チェックと新規アップロードの同時選択バリデーション
+            function (Validator $validator) {
+                foreach (['image1', 'image2', 'image3'] as $field) {
+                    if ($this->hasFile($field) && $this->boolean('delete_' . $field)) {
+                        $validator->errors()->add(
+                            $field,
+                            'Please either replace or delete the image, not both.'
+                        );
+                    }
+                }
+            },
         ];
     }
 }

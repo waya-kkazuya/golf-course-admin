@@ -212,3 +212,11 @@ dd {
     color: #3B6D11;
     border-color: #C0DD97;
 }
+
+
+/* 画像 */
+img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+}

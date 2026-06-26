@@ -6,6 +6,7 @@ use App\Http\Requests\GolfCourseRequest;
 use Illuminate\Http\Request;
 use App\Models\GolfCourse;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
 
 class GolfCourseController extends Controller
 {
@@ -46,7 +47,16 @@ class GolfCourseController extends Controller
 
     public function store(GolfCourseRequest $request)
     {
-        GolfCourse::create($request->validated());
+        $golfCourse = GolfCourse::create($request->validated());
+
+        // 可変変数を使用
+        foreach (['image1', 'image2', 'image3'] as $field) {
+            if ($request->hasFile($field)) {
+                $path = $request->file($field)
+                    ->store('golf-courses/' . $golfCourse->id, 'public');
+                $golfCourse->update([$field => $path]);
+            }
+        }
 
         return redirect()->route('golf-courses.index')
             ->with('success', '登録しました。');
@@ -59,7 +69,27 @@ class GolfCourseController extends Controller
 
     public function update(GolfCourseRequest $request, GolfCourse $golfCourse)
     {
-        $golfCourse->update($request->validated());
+        $validated = $request->validated();
+
+        // 可変変数を使用
+        foreach (['image1', 'image2', 'image3'] as $field) {
+            // 削除チェックがある場合
+            if ($request->boolean('delete_' . $field) && $golfCourse->$field) {
+                Storage::disk('public')->delete($golfCourse->$field);
+                $validated[$field] = null;
+            }
+
+            // 新規アップロードがある場合
+            if ($request->hasFile($field)) {
+                if ($golfCourse->$field) {
+                    Storage::disk('public')->delete($golfCourse->$field);
+                }
+                $validated[$field] = $request->file($field)
+                    ->store('golf-courses/' . $golfCourse->id, 'public');
+            }
+        }
+
+        $golfCourse->update($validated);
 
         return redirect()->route('golf-courses.index')
             ->with('success', '更新しました。');
