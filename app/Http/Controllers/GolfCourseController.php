@@ -133,4 +133,13 @@ class GolfCourseController extends Controller
 
         return view('golf-courses.trashed', compact('golfCourses', 'keyword'));
     }
+
+    public function restore(GolfCourse $golfCourse)
+    {
+        $course_name = $golfCourse->course_name;
+        $golfCourse->restore();
+
+        return redirect()->route('golf-courses.index')
+            ->with('success', "{$course_name} を復元しました。");
+    }
 }

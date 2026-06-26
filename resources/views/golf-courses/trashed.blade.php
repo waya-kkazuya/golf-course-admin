@@ -81,7 +81,10 @@
                     </td>
                     <td>{{ $golfCourse->phone }}</td>
                     <td>
-                        <a href="#" class="btn btn-view">復元</a>
+                        <form action="{{ route('golf-courses.restore', $golfCourse) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-edit">復元</button>
+                        </form>
                         <a href="#" class="btn btn-delete">完全削除</a>
                     </td>
                 </tr>

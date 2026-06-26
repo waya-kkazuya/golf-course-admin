@@ -21,6 +21,10 @@ Route::middleware('auth')->group(function () {
     Route::get('golf-courses/{golfCourse}/delete', [GolfCourseController::class, 'delete'])
         ->name('golf-courses.delete');
 
+    Route::post('golf-courses/{golfCourse}/restore', [GolfCourseController::class, 'restore'])
+        ->name('golf-courses.restore')
+        ->withTrashed();
+
     Route::resource('golf-courses', GolfCourseController::class);
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 });
