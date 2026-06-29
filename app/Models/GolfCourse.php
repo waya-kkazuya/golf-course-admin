@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Storage;
 
 class GolfCourse extends Model
 {
+    use HasFactory;
     use SoftDeletes;
 
     protected $fillable = [
@@ -39,7 +41,7 @@ class GolfCourse extends Model
     protected function kind(): Attribute
     {
         return Attribute::make(
-            get: fn() => collect([
+            get: fn () => collect([
                 $this->indoor ? 'インドア' : null,
                 $this->outdoor ? 'アウトドア' : null,
                 $this->short_course ? 'ショートコース' : null,
@@ -51,35 +53,35 @@ class GolfCourse extends Model
     protected function image1Url(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->image1 ? Storage::url($this->image1) : null
+            get: fn () => $this->image1 ? Storage::url($this->image1) : null
         );
     }
 
     protected function image2Url(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->image2 ? Storage::url($this->image2) : null
+            get: fn () => $this->image2 ? Storage::url($this->image2) : null
         );
     }
 
     protected function image3Url(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->image3 ? Storage::url($this->image3) : null
+            get: fn () => $this->image3 ? Storage::url($this->image3) : null
         );
     }
 
     protected function createdAtFormatted(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->created_at?->format('Y年m月d日 H:i')
+            get: fn () => $this->created_at?->format('Y年m月d日 H:i')
         );
     }
 
     protected function updatedAtFormatted(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->updated_at?->format('Y年m月d日 H:i')
+            get: fn () => $this->updated_at?->format('Y年m月d日 H:i')
         );
     }
 
@@ -95,26 +97,26 @@ class GolfCourse extends Model
 
     public function scopeLocale(Builder $query, ?string $locale): Builder
     {
-        return $query->when($locale, fn($q) => $q->where('locale', $locale));
+        return $query->when($locale, fn ($q) => $q->where('locale', $locale));
     }
 
     public function scopeStatePrefecture(Builder $query, ?string $statePrefecture)
     {
-        return $query->when($statePrefecture, fn($q) => $q->where('state_prefecture', $statePrefecture));
+        return $query->when($statePrefecture, fn ($q) => $q->where('state_prefecture', $statePrefecture));
     }
 
     public function scopeKind(Builder $query, ?string $kind)
     {
         $columnMap = [
-            'indoor'  => 'indoor',
+            'indoor' => 'indoor',
             'outdoor' => 'outdoor',
-            'short'   => 'short_course',
-            'long'    => 'long_course',
+            'short' => 'short_course',
+            'long' => 'long_course',
         ];
 
         return $query->when(
             $kind && array_key_exists($kind, $columnMap),
-            fn($q) => $q->where($columnMap[$kind], true)
+            fn ($q) => $q->where($columnMap[$kind], true)
         );
     }
 }
