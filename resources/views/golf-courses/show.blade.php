@@ -80,10 +80,10 @@
         </dd>
 
         <dt>作成日時</dt>
-        <dd>{{ $golfCourse->created_at }}</dd>
+        <dd>{{ $golfCourse->created_at_formatted }}</dd>
 
         <dt>更新日時</dt>
-        <dd>{{ $golfCourse->updated_at }}</dd>
+        <dd>{{ $golfCourse->updated_at_formatted }}</dd>
     </dl>
 
     <p><a href="{{ route('golf-courses.index') }}">一覧へ戻る</a></p>
