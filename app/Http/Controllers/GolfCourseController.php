@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GolfCourseRequest;
-use Illuminate\Http\Request;
 use App\Models\GolfCourse;
-use Illuminate\View\View;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class GolfCourseController extends Controller
 {
@@ -14,13 +14,13 @@ class GolfCourseController extends Controller
     {
         $request->validate([
             'keyword' => ['nullable', 'string', 'max:100'],
-            'prefecture' => ['nullable', 'string', 'max:255'],
+            'state_prefecture' => ['nullable', 'string', 'max:255'],
             'locale' => ['nullable', 'in:ja,en'],
             'kind' => ['nullable', 'in:indoor,outdoor,short,long'],
         ]);
 
         $keyword = $request->input('keyword');
-        $locale  = $request->input('locale');
+        $locale = $request->input('locale');
         $statePrefecture = $request->input('state_prefecture');
         $kind = $request->input('kind');
 
@@ -53,7 +53,7 @@ class GolfCourseController extends Controller
         foreach (['image1', 'image2', 'image3'] as $field) {
             if ($request->hasFile($field)) {
                 $path = $request->file($field)
-                    ->store('golf-courses/' . $golfCourse->id, 'public');
+                    ->store('golf-courses/'.$golfCourse->id, 'public');
                 $golfCourse->update([$field => $path]);
             }
         }
@@ -74,7 +74,7 @@ class GolfCourseController extends Controller
         // 可変変数を使用
         foreach (['image1', 'image2', 'image3'] as $field) {
             // 削除チェックがある場合
-            if ($request->boolean('delete_' . $field) && $golfCourse->$field) {
+            if ($request->boolean('delete_'.$field) && $golfCourse->$field) {
                 Storage::disk('public')->delete($golfCourse->$field);
                 $validated[$field] = null;
             }
@@ -85,7 +85,7 @@ class GolfCourseController extends Controller
                     Storage::disk('public')->delete($golfCourse->$field);
                 }
                 $validated[$field] = $request->file($field)
-                    ->store('golf-courses/' . $golfCourse->id, 'public');
+                    ->store('golf-courses/'.$golfCourse->id, 'public');
             }
         }
 
@@ -119,7 +119,7 @@ class GolfCourseController extends Controller
         ]);
 
         $keyword = $request->input('keyword');
-        $locale  = $request->input('locale');
+        $locale = $request->input('locale');
         $statePrefecture = $request->input('state_prefecture');
         $kind = $request->input('kind');
 
@@ -148,7 +148,7 @@ class GolfCourseController extends Controller
         $course_name = $golfCourse->course_name;
 
         // フォルダごと削除
-        Storage::disk('public')->deleteDirectory('golf-courses/' . $golfCourse->id);
+        Storage::disk('public')->deleteDirectory('golf-courses/'.$golfCourse->id);
 
         $golfCourse->forceDelete();
 
