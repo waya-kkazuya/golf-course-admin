@@ -8,32 +8,36 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 
-<body>
-    <h1>ログイン画面</h1>
+<body class="login-body">
+    <div class="login-wrap">
+        <h1 class="login-title">ゴルフ場DBメンテナンスシステム</h1>
 
-    <form method="post" action="{{ route('login') }}">
-        @csrf
+        <div class="login-card">
+            <h2 class="login-subtitle">ログイン</h2>
 
-        @if ($errors->any())
-            <div class="flash flash-error">
-                {{ $errors->first() }}
-            </div>
-        @endif
+            <form method="post" action="{{ route('login') }}">
+                @csrf
 
-        <div class="form-group">
-            <label for="email">メールアドレス:</label>
-            <input type="email" id="email" name="email" required>
+                @if ($errors->any())
+                    <div class="flash flash-error">
+                        {{ $errors->first() }}
+                    </div>
+                @endif
+
+                <div class="login-field">
+                    <label for="email">メールアドレス</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="login-field">
+                    <label for="password">パスワード</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary login-submit">ログイン</button>
+            </form>
         </div>
-
-        <div class="form-group">
-            <label for="password">パスワード:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-
-        <div>
-            <button type="submit">ログイン</button>
-        </div>
-    </form>
+    </div>
 </body>
 
 </html>

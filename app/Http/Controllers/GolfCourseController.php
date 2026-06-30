@@ -140,7 +140,7 @@ class GolfCourseController extends Controller
         $golfCourse->restore();
 
         return redirect()->route('golf-courses.index')
-            ->with('success', "{$course_name} を復元しました。");
+            ->with('success', "【{$course_name} 】を復元しました。");
     }
 
     public function forceDelete(GolfCourse $golfCourse)
