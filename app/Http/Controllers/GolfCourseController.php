@@ -7,6 +7,7 @@ use App\Models\GolfCourse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class GolfCourseController extends Controller
 {
@@ -154,5 +155,65 @@ class GolfCourseController extends Controller
 
         return redirect()->route('golf-courses.trashed')
             ->with('success', "{$course_name} を完全に削除しました。");
+    }
+
+    public function export(Request $request): StreamedResponse
+    {
+        $keyword = $request->input('keyword');
+        $locale = $request->input('locale');
+        $statePrefecture = $request->input('state_prefecture');
+        $kind = $request->input('kind');
+
+        $golfCourses = GolfCourse::query()
+            ->keyword($keyword)
+            ->locale($locale)
+            ->statePrefecture($statePrefecture)
+            ->kind($kind)
+            ->get();
+
+        $fileName = 'golf_courses_'.now()->format('YmdHis').'.csv';
+
+        return response()->streamDownload(function () use ($golfCourses) {
+            $stream = fopen('php://output', 'w');
+
+            // BOMを付与（Excelで文字化けを防ぐ）
+            fwrite($stream, "\xEF\xBB\xBF");
+
+            // ヘッダー行
+            fputcsv($stream, [
+                'ID', '言語', '国コード', '都道府県・州', '施設名', '種別', '公式サイトURL',
+                '代表電話', '住所', 'インドア', 'アウトドア', 'ショートコース', 'ロングコース',
+                '緯度', '経度', '問い合わせメール', '予約先URL／番号', '予約手段', '備考',
+            ]);
+
+            // データ行
+            foreach ($golfCourses as $golfCourse) {
+                fputcsv($stream, [
+                    $golfCourse->id,
+                    $golfCourse->locale,
+                    $golfCourse->country_code,
+                    $golfCourse->state_prefecture,
+                    $golfCourse->course_name,
+                    $golfCourse->kinds,
+                    $golfCourse->web,
+                    $golfCourse->phone,
+                    $golfCourse->address,
+                    $golfCourse->indoor ? '1' : '0',
+                    $golfCourse->outdoor ? '1' : '0',
+                    $golfCourse->short_course ? '1' : '0',
+                    $golfCourse->long_course ? '1' : '0',
+                    $golfCourse->lat,
+                    $golfCourse->lng,
+                    $golfCourse->form_email,
+                    $golfCourse->reservation,
+                    $golfCourse->reservation_method,
+                    $golfCourse->remarks,
+                ]);
+            }
+
+            fclose($stream);
+        }, $fileName, [
+            'Content-Type' => 'text/csv',
+        ]);
     }
 }
