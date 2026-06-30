@@ -3,13 +3,12 @@
 ## 動作環境
 
 - Docker
-- Docker Compose
 
 ## 使用技術
 
-- PHP 8.1
+- PHP 8.5.1
 - Laravel 13
-- MySQL 8.0
+- MySQL 8.4
 - Laravel Sail（Docker開発環境）
 
 ## セットアップ手順
@@ -34,7 +33,7 @@ docker run --rm \
     -u "$(id -u):$(id -g)" \
     -v "$(pwd):/var/www/html" \
     -w /var/www/html \
-    laravelsail/php81-composer:latest \
+    laravelsail/php84-composer:latest \
     composer install --ignore-platform-reqs
 ```
 
