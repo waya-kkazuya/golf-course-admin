@@ -32,7 +32,7 @@ class GolfCourseFactory extends Factory
             $phone = $jaFaker->phoneNumber(); // → 090-1234-5678
             $address = $jaFaker->address(); // → 東京都新宿区西新宿1-1-1
             $form_email = $jaFaker->email(); // → taro@example.com
-            $remarks = $jaFaker->text(5000);
+            $remarks = $jaFaker->text(100);
             $allRegions = array_merge(
                 array_column(JaPrefecture::cases(), 'value'),
                 array_column(JaUsState::cases(), 'value')
@@ -43,7 +43,7 @@ class GolfCourseFactory extends Factory
             $phone = $enFaker->phoneNumber(); // → 555-123-4567
             $address = $enFaker->address(); // → 東京都新宿区西新宿1-1-1
             $form_email = $enFaker->email(); // → → john@example.com
-            $remarks = $enFaker->text(5000);
+            $remarks = $enFaker->text(100);
             $allRegions = array_merge(
                 array_column(EnPrefecture::cases(), 'value'),
                 array_column(EnUsState::cases(), 'value')
