@@ -1,5 +1,4 @@
-<dl>
-    <dt><label for="locale">locale</label></dt>
+    <dt><label for="locale">言語</label></dt>
     <dd>
         <label>
             <input type="radio" name="locale" value="ja"
@@ -15,7 +14,7 @@
         @enderror
     </dd>
 
-    <dt>country_code</dt>
+    <dt>国コード</dt>
     <dd>
         <label>
             <input type="radio" name="country_code" value="JP"
@@ -178,8 +177,7 @@
     <dt><label for="reservation">予約先URL／番号</label></dt>
     <dd>
         <input type="text" id="reservation" name="reservation"
-            value="{{ old('reservation', $golfCourse->reservation ?? '') }}"
-            placeholder="https://example.com または 000-0000-0000" maxlength="255">
+            value="{{ old('reservation', $golfCourse->reservation ?? '') }}" maxlength="255">
         @error('reservation')
             <span class="error">{{ $message }}</span>
         @enderror
@@ -201,6 +199,3 @@
             <span class="error">{{ $message }}</span>
         @enderror
     </dd>
-
-    {{-- 画像アップロードは後から実装 --}}
-</dl>

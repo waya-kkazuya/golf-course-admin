@@ -1,59 +1,58 @@
 @charset "UTF-8";
 
-.form-group {
-    margin-bottom: 10px;
-}
-
-.form-group label {
-    display: inline-block;
-    width: 120px; /* 横幅を120pxに固定して右側を揃える */
-}
-
-.form-group input {
-    padding: 4px;
-}
-
-.error-message {
-    color: #dc3545;
-    font-size: 0.85rem;
-    font-weight: bold;
-}
-
 /* ========================================
-   テーブル
+   グローバルヘッダー
 ======================================== */
-table {
-    width: 100%;
-    border-collapse: collapse;
+.global-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 24px;
+    background-color: #f8f8f8;
+    border-bottom: 0.5px solid #ddd;
+}
+
+.global-header-title {
     font-size: 13px;
-}
-
-th {
-    background-color: #f5f5f5;
-    text-align: left;
-    padding: 10px 12px;
-    border-bottom: 2px solid #ddd;
     font-weight: 500;
+    color: #666;
 }
-
-td {
-    padding: 10px 12px;
-    border-bottom: 1px solid #eee;
-    vertical-align: middle;
-}
-
-tr:hover {
-    background-color: #fafafa;
-}
-
-.kinds-col {
-    width: 360px;
-    white-space: nowrap;
-}
-
 
 /* ========================================
-   操作ボタン共通
+   コンテナ
+======================================== */
+.container {
+    padding: 24px;
+}
+
+/* ========================================
+   ページヘッダー
+======================================== */
+.page-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.page-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.page-header-actions {
+    display: flex;
+    gap: 8px;
+}
+
+h1 a {
+    font-size: 16px;
+    font-weight: normal;
+}
+
+/* ========================================
+   ボタン共通
 ======================================== */
 .btn {
     display: inline-block;
@@ -65,115 +64,384 @@ tr:hover {
     cursor: pointer;
 }
 
-/* 詳細 */
 .btn-view {
     color: #185FA5;
     background-color: #E6F1FB;
     border-color: #B5D4F4;
 }
 
-/* 編集 */
+.btn-view:hover {
+    background-color: #B5D4F4;
+}
+
 .btn-edit {
     color: #3B6D11;
     background-color: #EAF3DE;
     border-color: #C0DD97;
 }
 
-/* 削除 */
-.btn-delete {
-    color: #A32D2D;
-    background-color: #FCEBEB;
-    border-color: #F7C1C1;
-}
-
-/* ========================================
-   ボタンのホバー
-======================================== */
-.btn-view:hover {
-    background-color: #B5D4F4;
-}
-
 .btn-edit:hover {
     background-color: #C0DD97;
 }
 
+.btn-delete {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    font-size: 13px;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+    color: #666;
+    border: 0.5px solid #ddd;
+    cursor: pointer;
+    text-decoration: none;
+}
+
 .btn-delete:hover {
-    background-color: #F7C1C1;
+    background-color: #FCEBEB;
+    color: #A32D2D;
+    border-color: #F7C1C1;
+}
+
+.btn-delete-muted {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    font-size: 13px;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+    color: #666;
+    border: 0.5px solid #ddd;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.btn-delete-muted:hover {
+    background-color: #FCEBEB;
+    color: #A32D2D;
+    border-color: #F7C1C1;
+}
+
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    font-size: 13px;
+    border-radius: 4px;
+    background-color: #185FA5;
+    color: #fff;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #0C447C;
+}
+
+.btn-muted {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    font-size: 13px;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+    color: #666;
+    border: 0.5px solid #ddd;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-muted:hover {
+    background-color: #eee;
+}
+
+.btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 12px;
+    font-size: 12px;
+    border-radius: 4px;
+    background: transparent;
+    color: #888;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-ghost:hover {
+    background-color: #eee;
+    color: #666;
+}
+
+/* ========================================
+   検索フォーム
+======================================== */
+.search-form {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 12px 16px;
+    background-color: #fff;
+    border: 0.5px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    max-width: 800px;
+}
+
+.search-input {
+    flex: 1;
+    min-width: 200px;
+    height: 34px;
+    padding: 0 10px;
+    font-size: 13px;
+    border: 0.5px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #185FA5;
+}
+
+.search-select {
+    height: 34px;
+    padding: 0 8px;
+    font-size: 13px;
+    border: 0.5px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #999;
+    cursor: pointer;
+}
+
+.search-select:focus {
+    outline: none;
+    border-color: #185FA5;
+}
+
+.search-btn {
+    height: 34px;
+    padding: 0 16px;
+    font-size: 13px;
+    border-radius: 4px;
+    background-color: #185FA5;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.search-btn:hover {
+    background-color: #0C447C;
+}
+
+/* ========================================
+   テーブル
+======================================== */
+.table-wrap {
+    border: 0.5px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+thead tr {
+    background-color: #f8f8f8;
+    border-bottom: 0.5px solid #ddd;
+}
+
+th {
+    text-align: left;
+    padding: 10px 14px;
+    color: #666;
+    font-weight: 500;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+td {
+    padding: 10px 14px;
+    border-bottom: 0.5px solid #eee;
+    color: #333;
+    vertical-align: middle;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background-color: #fafafa;
+}
+
+.kinds-col {
+    width: 360px;
+    white-space: nowrap;
+}
+
+.table-empty {
+    text-align: center;
+    color: #888;
+    padding: 24px !important;
+}
+
+/* ========================================
+   テーブルフッター
+======================================== */
+.table-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+}
+
+.table-count {
+    font-size: 12px;
+    color: #888;
+}
+
+/* ========================================
+   バッジ
+======================================== */
+.badge {
+    display: inline-flex;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-weight: 500;
+}
+
+.badge-ja {
+    background-color: #E6F1FB;
+    color: #0C447C;
+}
+
+.badge-en {
+    background-color: #EAF3DE;
+    color: #27500A;
+}
+
+/* ========================================
+   アクションボタン
+======================================== */
+.actions {
+    display: flex;
+    gap: 4px;
+}
+
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 10px;
+    font-size: 12px;
+    border-radius: 4px;
+    border: 0.5px solid #ddd;
+    background-color: #fff;
+    color: #666;
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.action-btn.view:hover {
+    background-color: #E6F1FB;
+    color: #0C447C;
+    border-color: #B5D4F4;
+}
+
+.action-btn.edit:hover {
+    background-color: #EAF3DE;
+    color: #27500A;
+    border-color: #C0DD97;
+}
+
+.action-btn.del:hover {
+    background-color: #FCEBEB;
+    color: #791F1F;
+    border-color: #F7C1C1;
 }
 
 /* ========================================
    ページネーション
 ======================================== */
-.pagination {
-    display: inline-flex;
-    gap: 4px;
-}
-
 .pagination-desktop {
     display: flex;
-    flex-direction: column-reverse;
     align-items: center;
-    gap: 8px;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    gap: 20px;
 }
 
 .pagination-mobile {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
+    display: none;
 }
 
 .pagination-info {
-    font-size: 13px;
-    color: #666;
+    font-size: 12px;
+    color: #888;
+    margin: 0;
+}
+
+.pagination {
+    display: inline-flex;
+    gap: 4px;
 }
 
 .pagination-item {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 32px;
-    height: 32px;
-    padding: 0 8px;
-    font-size: 13px;
-    border: 0.5px solid #ddd;
+    min-width: 28px;
+    height: 28px;
+    padding: 0 6px;
+    font-size: 12px;
     border-radius: 4px;
+    border: 0.5px solid #ddd;
+    background-color: #fff;
     text-decoration: none;
 }
 
 .pagination-link {
     color: #185FA5;
-    background: #fff;
 }
 
 .pagination-link:hover {
-    background: #E6F1FB;
+    background-color: #E6F1FB;
+    border-color: #B5D4F4;
 }
 
 .pagination-current {
-    background: #185FA5;
+    background-color: #185FA5;
     color: #fff;
     border-color: #185FA5;
 }
 
 .pagination-disabled {
-    color: #aaa;
-    background: #f5f5f5;
+    color: #bbb;
+    background-color: #f5f5f5;
     cursor: not-allowed;
 }
 
 .pagination-dots {
-    color: #666;
+    color: #888;
     border-color: transparent;
+    background: none;
 }
 
-
-h1 a {
-    font-size: 16px;
-    font-weight: normal;
-}
-
-
-/* Definition List */
+/* ========================================
+   Definition List
+======================================== */
 dl {
     display: grid;
     grid-template-columns: max-content 1fr;
@@ -190,12 +458,133 @@ dd {
     margin: 0;
 }
 
-/* バリデーションエラー */
-.error {
-    color: red;
+/* ========================================
+   詳細カード
+======================================== */
+.detail-card {
+    background-color: #fff;
+    border: 0.5px solid #ddd;
+    border-radius: 8px;
+    padding: 24px;
+    max-width: 800px;
 }
 
-/* フラッシュメッセージ */
+.detail-card dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0;
+}
+
+.detail-card dt {
+    padding: 10px 16px 10px 0;
+    border-bottom: 0.5px solid #eee;
+    font-weight: 500;
+    color: #666;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.detail-card dd {
+    padding: 10px 0;
+    border-bottom: 0.5px solid #eee;
+    margin: 0;
+    font-size: 13px;
+    color: #333;
+}
+
+.detail-card dl>dt:last-of-type,
+.detail-card dl>dd:last-of-type {
+    border-bottom: none;
+}
+
+/* ========================================
+   フォーム入力欄
+======================================== */
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    display: inline-block;
+    width: 120px;
+}
+
+.form-group input {
+    padding: 4px;
+}
+
+.detail-card input[type="text"],
+.detail-card input[type="email"],
+.detail-card input[type="url"],
+.detail-card input[type="tel"],
+.detail-card input[type="number"],
+.detail-card select,
+.detail-card textarea {
+    width: 100%;
+    max-width: 400px;
+    height: 36px;
+    padding: 0 10px;
+    font-size: 13px;
+    border: 0.5px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.detail-card textarea {
+    height: auto;
+    padding: 8px 10px;
+    resize: vertical;
+}
+
+.detail-card input[type="text"]:focus,
+.detail-card input[type="email"]:focus,
+.detail-card input[type="url"]:focus,
+.detail-card input[type="tel"]:focus,
+.detail-card input[type="number"]:focus,
+.detail-card select:focus,
+.detail-card textarea:focus {
+    outline: none;
+    border-color: #185FA5;
+}
+
+.detail-card input[type="file"] {
+    font-size: 13px;
+}
+
+.detail-card input[type="checkbox"],
+.detail-card input[type="radio"] {
+    margin-right: 4px;
+}
+
+.detail-card label {
+    font-size: 13px;
+}
+
+/* ========================================
+   フォームアクション
+======================================== */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 0.5px solid #eee;
+}
+
+/* ========================================
+   バリデーションエラー
+======================================== */
+.error,
+.error-message {
+    color: #dc3545;
+    font-size: 0.85rem;
+}
+
+/* ========================================
+   フラッシュメッセージ
+======================================== */
 .flash {
     display: flex;
     align-items: center;
@@ -213,31 +602,106 @@ dd {
     border-color: #C0DD97;
 }
 
-
-/* 画像 */
+/* ========================================
+   画像
+======================================== */
 img {
     width: 100%;
     max-width: 400px;
     height: auto;
 }
 
-
-/* 削除画面  */
+/* ========================================
+   削除確認画面
+======================================== */
 .confirm-actions {
     display: flex;
     gap: 8px;
+    margin-top: 16px;
 }
 
-/* 削除ボタンを控えめに */
-.btn-delete {
+.confirm-message {
+    margin-top: 16px;
+    padding: 12px 16px;
+    border-top: 0.5px solid #eee;
+    background-color: #FAEEDA;
+    border: 0.5px solid #F5C842;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #854F0B;
+}
+
+.confirm-message p {
+    margin: 0;
+}
+
+/* ========================================
+   ログイン画面
+======================================== */
+.login-body {
+    background-color: #f5f6f8;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-wrap {
+    width: 100%;
+    max-width: 360px;
+    padding: 0 16px;
+}
+
+.login-title {
+    text-align: center;
+    font-size: 14px;
     color: #666;
-    background-color: #f5f5f5;
-    border: 0.5px solid #ddd;
-    cursor: pointer;
+    font-weight: 500;
+    margin-bottom: 24px;
 }
 
-.btn-delete:hover {
-    background-color: #FCEBEB;
-    color: #A32D2D;
-    border-color: #F7C1C1;
+.login-card {
+    background-color: #fff;
+    border: 0.5px solid #ddd;
+    border-radius: 8px;
+    padding: 32px 24px;
+}
+
+.login-subtitle {
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0 0 20px;
+    color: #333;
+}
+
+.login-field {
+    margin-bottom: 16px;
+}
+
+.login-field label {
+    display: block;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.login-field input {
+    width: 100%;
+    height: 36px;
+    padding: 0 10px;
+    font-size: 13px;
+    border: 0.5px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.login-field input:focus {
+    outline: none;
+    border-color: #185FA5;
+}
+
+.login-submit {
+    width: 100%;
+    justify-content: center;
+    margin-top: 8px;
 }
