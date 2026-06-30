@@ -14,6 +14,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return redirect()->route('golf-courses.index');
     });
+    Route::get('golf-courses/export', [GolfCourseController::class, 'export'])
+        ->name('golf-courses.export');
 
     Route::get('golf-courses/trashed', [GolfCourseController::class, 'trashed'])
         ->name('golf-courses.trashed');

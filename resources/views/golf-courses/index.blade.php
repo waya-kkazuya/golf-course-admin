@@ -17,7 +17,7 @@
         </div>
     @endif
 
-    <x-golf-course-search :action="route('golf-courses.index')" />
+    <x-golf-course-search :action="route('golf-courses.index')" :show-export="true" />
 
     <div class="table-wrap">
         <table>
@@ -28,7 +28,7 @@
                     <th>都道府県・州名</th>
                     <th>言語</th>
                     <th class="kinds-col">種別</th>
-                    <th>電話番号</th>
+                    <th>代表電話</th>
                     <th>操作</th>
                 </tr>
             </thead>

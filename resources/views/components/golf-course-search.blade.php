@@ -1,4 +1,4 @@
-@props(['action'])
+@props(['action', 'showExport' => false])
 
 <form action="{{ $action }}" method="GET" class="search-form">
     <input type="text" name="keyword" value="{{ request('keyword') }}" placeholder="施設名・住所で検索" class="search-input">
@@ -41,4 +41,8 @@
     </select>
 
     <button type="submit" class="search-btn">検索</button>
+
+    @if ($showExport)
+        <a href="{{ route('golf-courses.export', request()->query()) }}" class="search-export-btn">CSVエクスポート</a>
+    @endif
 </form>

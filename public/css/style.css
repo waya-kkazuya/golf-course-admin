@@ -187,7 +187,7 @@ h1 a {
     border: 0.5px solid #ddd;
     border-radius: 8px;
     margin-bottom: 16px;
-    max-width: 800px;
+    max-width: 1000px;
 }
 
 .search-input {
@@ -704,4 +704,23 @@ img {
     width: 100%;
     justify-content: center;
     margin-top: 8px;
+}
+
+.search-export-btn {
+    height: 34px;
+    padding: 0 16px;
+    font-size: 13px;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #185FA5;
+    border: 0.5px solid #B5D4F4;
+    cursor: pointer;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.search-export-btn:hover {
+    background-color: #E6F1FB;
 }
