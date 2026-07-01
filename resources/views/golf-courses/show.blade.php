@@ -55,6 +55,13 @@
                 {{ $golfCourse->lng !== null ? number_format($golfCourse->lng, 6) : '-' }}
             </dd>
 
+            @if ($golfCourse->lat !== null && $golfCourse->lng !== null)
+                <dt>地図</dt>
+                <dd>
+                    <div id="map" style="height: 300px; width: 100%; max-width: 600px;"></div>
+                </dd>
+            @endif
+
             <dt>問い合わせメール</dt>
             <dd>{{ $golfCourse->form_email }}</dd>
 
@@ -96,4 +103,22 @@
         </dl>
     </div>
 
+    @if ($golfCourse->lat !== null && $golfCourse->lng !== null)
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const lat = {{ $golfCourse->lat }};
+                const lng = {{ $golfCourse->lng }};
+
+                const map = L.map('map').setView([lat, lng], 3);
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                }).addTo(map);
+
+                L.marker([lat, lng]).addTo(map)
+                    .bindPopup({{ Js::from($golfCourse->course_name) }})
+                    .openPopup();
+            });
+        </script>
+    @endif
 </x-layout>
