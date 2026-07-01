@@ -100,12 +100,12 @@ class GolfCourse extends Model
         return $query->when($locale, fn ($q) => $q->where('locale', $locale));
     }
 
-    public function scopeStatePrefecture(Builder $query, ?string $statePrefecture)
+    public function scopeStatePrefecture(Builder $query, ?string $statePrefecture): Builder
     {
         return $query->when($statePrefecture, fn ($q) => $q->where('state_prefecture', $statePrefecture));
     }
 
-    public function scopeKind(Builder $query, ?string $kind)
+    public function scopeKind(Builder $query, ?string $kind): Builder
     {
         $columnMap = [
             'indoor' => 'indoor',

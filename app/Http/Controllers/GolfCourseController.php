@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\GolfCourseRequest;
 use App\Models\GolfCourse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
@@ -36,17 +37,17 @@ class GolfCourseController extends Controller
         return view('golf-courses.index', compact('golfCourses', 'keyword'));
     }
 
-    public function show(GolfCourse $golfCourse)
+    public function show(GolfCourse $golfCourse): View
     {
         return view('golf-courses.show', compact('golfCourse'));
     }
 
-    public function create()
+    public function create(): View
     {
         return view('golf-courses.create');
     }
 
-    public function store(GolfCourseRequest $request)
+    public function store(GolfCourseRequest $request): RedirectResponse
     {
         $golfCourse = GolfCourse::create($request->validated());
 
@@ -63,12 +64,12 @@ class GolfCourseController extends Controller
             ->with('success', '登録しました。');
     }
 
-    public function edit(GolfCourse $golfCourse)
+    public function edit(GolfCourse $golfCourse): View
     {
         return view('golf-courses.edit', compact('golfCourse'));
     }
 
-    public function update(GolfCourseRequest $request, GolfCourse $golfCourse)
+    public function update(GolfCourseRequest $request, GolfCourse $golfCourse): RedirectResponse
     {
         $validated = $request->validated();
 
@@ -96,12 +97,12 @@ class GolfCourseController extends Controller
             ->with('success', '更新しました。');
     }
 
-    public function delete(GolfCourse $golfCourse)
+    public function delete(GolfCourse $golfCourse): View
     {
         return view('golf-courses.delete', compact('golfCourse'));
     }
 
-    public function destroy(GolfCourse $golfCourse)
+    public function destroy(GolfCourse $golfCourse): RedirectResponse
     {
         $course_name = $golfCourse->course_name;
         $golfCourse->delete();
@@ -110,7 +111,7 @@ class GolfCourseController extends Controller
             ->with('success', "【{$course_name}】を削除しました。");
     }
 
-    public function trashed(Request $request)
+    public function trashed(Request $request): View
     {
         $request->validate([
             'keyword' => ['nullable', 'string', 'max:100'],
@@ -135,7 +136,7 @@ class GolfCourseController extends Controller
         return view('golf-courses.trashed', compact('golfCourses', 'keyword'));
     }
 
-    public function restore(GolfCourse $golfCourse)
+    public function restore(GolfCourse $golfCourse): RedirectResponse
     {
         $course_name = $golfCourse->course_name;
         $golfCourse->restore();
